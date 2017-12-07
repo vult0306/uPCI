@@ -22,6 +22,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x.h"
 #include "platform_config.h"
+#include "stm32f10x_conf.h"
 
 /** @addtogroup STM32F10x_StdPeriph_Examples
   * @{
@@ -114,7 +115,7 @@ int main(void)
   
   /* Enable USARTy Receive and Transmit interrupts */
   USART_ITConfig(USARTy, USART_IT_RXNE, ENABLE);
-  USART_ITConfig(USARTy, USART_IT_TXE, ENABLE);
+  USART_ITConfig(USARTy, USART_IT_TXE, DISABLE);
 
   /* Enable USARTz Receive and Transmit interrupts */
   USART_ITConfig(USARTz, USART_IT_RXNE, ENABLE);
@@ -124,6 +125,8 @@ int main(void)
   USART_Cmd(USARTy, ENABLE);
   /* Enable the USARTz */
   USART_Cmd(USARTz, ENABLE);
+	
+	while(1);
 
   /* Wait until end of transmission from USARTy to USARTz */
   while(RxCounter2 < RxBufferSize2)

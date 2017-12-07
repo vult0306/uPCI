@@ -1,0 +1,472 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+F:\gitwork\uPCI\Project\STM32F10x_StdPeriph_Examples\USART\Interrupt\uart_int.uvproj
+Project File Date:  12/07/2017
+
+<h2>Output:</h2>
+Rebuild target 'uart_int'
+assembling startup_stm32f10x_hd.s...
+compiling main.c...
+compiling system_stm32f10x.c...
+compiling core_cm3.c...
+compiling misc.c...
+compiling stm32f10x_exti.c...
+compiling stm32f10x_gpio.c...
+compiling stm32f10x_rcc.c...
+compiling stm32f10x_usart.c...
+linking...
+Program Size: Code=4240 RO-data=336 RW-data=168 ZI-data=1768  
+".\out\uart_int.axf" - 0 Error(s), 0 Warning(s).
+Rebuild target 'uart_int'
+assembling startup_stm32f10x_hd.s...
+compiling main.c...
+compiling core_cm3.c...
+compiling system_stm32f10x.c...
+compiling stm32f10x_it.c...
+compiling misc.c...
+compiling stm32f10x_exti.c...
+compiling stm32f10x_gpio.c...
+compiling stm32f10x_rcc.c...
+compiling stm32f10x_usart.c...
+linking...
+Program Size: Code=4556 RO-data=336 RW-data=168 ZI-data=1768  
+".\out\uart_int.axf" - 0 Error(s), 0 Warning(s).
+Load "F:\\gitwork\\uPCI\\Project\\STM32F10x_StdPeriph_Examples\\USART\\Interrupt\\out\\uart_int.AXF" 
+Set JLink Project File to "F:\gitwork\uPCI\Project\STM32F10x_StdPeriph_Examples\USART\Interrupt\JLinkSettings.ini"
+* JLink Info: Device "STM32F103RC" selected (256 KB flash, 48 KB RAM).
+ 
+JLink info:
+------------
+DLL: V4.54a, compiled Sep 17 2012 15:58:45
+Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+Hardware: V7.00
+S/N : 20090928 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info: FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M3 r1p1, Little endian.
+ROMTableAddr = 0xE00FF003
+ 
+Target info:
+------------
+Device: STM32F103RC
+VTarget = 3.300V
+State of Pins: 
+TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+Hardware-Breakpoints: 6
+Software-Breakpoints: 8192
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Full Chip Erase Done.
+Programming Done.
+Verify OK.
+Build target 'uart_int'
+compiling main.c...
+compiling stm32f10x_it.c...
+linking...
+Program Size: Code=4476 RO-data=336 RW-data=168 ZI-data=1768  
+".\out\uart_int.axf" - 0 Error(s), 0 Warning(s).
+Load "F:\\gitwork\\uPCI\\Project\\STM32F10x_StdPeriph_Examples\\USART\\Interrupt\\out\\uart_int.AXF" 
+Set JLink Project File to "F:\gitwork\uPCI\Project\STM32F10x_StdPeriph_Examples\USART\Interrupt\JLinkSettings.ini"
+* JLink Info: Device "STM32F103RC" selected (256 KB flash, 48 KB RAM).
+ 
+JLink info:
+------------
+DLL: V4.54a, compiled Sep 17 2012 15:58:45
+Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+Hardware: V7.00
+S/N : 20090928 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info: FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M3 r1p1, Little endian.
+ROMTableAddr = 0xE00FF003
+ 
+Target info:
+------------
+Device: STM32F103RC
+VTarget = 3.300V
+State of Pins: 
+TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+Hardware-Breakpoints: 6
+Software-Breakpoints: 8192
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Full Chip Erase Done.
+Programming Done.
+Verify OK.
+Rebuild target 'uart_int'
+assembling startup_stm32f10x_hd.s...
+compiling main.c...
+compiling core_cm3.c...
+compiling system_stm32f10x.c...
+compiling stm32f10x_it.c...
+compiling misc.c...
+compiling stm32f10x_exti.c...
+compiling stm32f10x_gpio.c...
+compiling stm32f10x_rcc.c...
+compiling stm32f10x_usart.c...
+linking...
+Program Size: Code=4428 RO-data=336 RW-data=172 ZI-data=1764  
+".\out\uart_int.axf" - 0 Error(s), 0 Warning(s).
+Load "F:\\gitwork\\uPCI\\Project\\STM32F10x_StdPeriph_Examples\\USART\\Interrupt\\out\\uart_int.AXF" 
+Set JLink Project File to "F:\gitwork\uPCI\Project\STM32F10x_StdPeriph_Examples\USART\Interrupt\JLinkSettings.ini"
+* JLink Info: Device "STM32F103RC" selected (256 KB flash, 48 KB RAM).
+ 
+JLink info:
+------------
+DLL: V4.54a, compiled Sep 17 2012 15:58:45
+Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+Hardware: V7.00
+S/N : 20090928 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info: FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M3 r1p1, Little endian.
+ROMTableAddr = 0xE00FF003
+ 
+Target info:
+------------
+Device: STM32F103RC
+VTarget = 3.300V
+State of Pins: 
+TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+Hardware-Breakpoints: 6
+Software-Breakpoints: 8192
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Full Chip Erase Done.
+Programming Done.
+Verify OK.
+Rebuild target 'uart_int'
+assembling startup_stm32f10x_hd.s...
+compiling main.c...
+compiling core_cm3.c...
+compiling system_stm32f10x.c...
+compiling stm32f10x_it.c...
+compiling misc.c...
+compiling stm32f10x_exti.c...
+compiling stm32f10x_gpio.c...
+compiling stm32f10x_rcc.c...
+compiling stm32f10x_usart.c...
+linking...
+Program Size: Code=4416 RO-data=336 RW-data=172 ZI-data=1764  
+".\out\uart_int.axf" - 0 Error(s), 0 Warning(s).
+Load "F:\\gitwork\\uPCI\\Project\\STM32F10x_StdPeriph_Examples\\USART\\Interrupt\\out\\uart_int.AXF" 
+Set JLink Project File to "F:\gitwork\uPCI\Project\STM32F10x_StdPeriph_Examples\USART\Interrupt\JLinkSettings.ini"
+* JLink Info: Device "STM32F103RC" selected (256 KB flash, 48 KB RAM).
+ 
+JLink info:
+------------
+DLL: V4.54a, compiled Sep 17 2012 15:58:45
+Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+Hardware: V7.00
+S/N : 20090928 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info: FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M3 r1p1, Little endian.
+ROMTableAddr = 0xE00FF003
+ 
+Target info:
+------------
+Device: STM32F103RC
+VTarget = 3.300V
+State of Pins: 
+TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+Hardware-Breakpoints: 6
+Software-Breakpoints: 8192
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Full Chip Erase Done.
+Programming Done.
+Verify OK.
+Rebuild target 'uart_int'
+assembling startup_stm32f10x_hd.s...
+compiling main.c...
+compiling core_cm3.c...
+compiling system_stm32f10x.c...
+compiling stm32f10x_it.c...
+compiling misc.c...
+compiling stm32f10x_exti.c...
+compiling stm32f10x_gpio.c...
+compiling stm32f10x_rcc.c...
+compiling stm32f10x_usart.c...
+linking...
+Program Size: Code=4404 RO-data=336 RW-data=172 ZI-data=1764  
+".\out\uart_int.axf" - 0 Error(s), 0 Warning(s).
+Load "F:\\gitwork\\uPCI\\Project\\STM32F10x_StdPeriph_Examples\\USART\\Interrupt\\out\\uart_int.AXF" 
+Set JLink Project File to "F:\gitwork\uPCI\Project\STM32F10x_StdPeriph_Examples\USART\Interrupt\JLinkSettings.ini"
+* JLink Info: Device "STM32F103RC" selected (256 KB flash, 48 KB RAM).
+ 
+JLink info:
+------------
+DLL: V4.54a, compiled Sep 17 2012 15:58:45
+Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+Hardware: V7.00
+S/N : 20090928 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info: FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M3 r1p1, Little endian.
+ROMTableAddr = 0xE00FF003
+ 
+Target info:
+------------
+Device: STM32F103RC
+VTarget = 3.300V
+State of Pins: 
+TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+Hardware-Breakpoints: 6
+Software-Breakpoints: 8192
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Full Chip Erase Done.
+Programming Done.
+Verify OK.
+Build target 'uart_int'
+linking...
+Program Size: Code=4404 RO-data=336 RW-data=172 ZI-data=1764  
+".\out\uart_int.axf" - 0 Error(s), 0 Warning(s).
+Load "F:\\gitwork\\uPCI\\Project\\STM32F10x_StdPeriph_Examples\\USART\\Interrupt\\out\\uart_int.AXF" 
+Set JLink Project File to "F:\gitwork\uPCI\Project\STM32F10x_StdPeriph_Examples\USART\Interrupt\JLinkSettings.ini"
+* JLink Info: Device "STM32F103RC" selected (256 KB flash, 48 KB RAM).
+ 
+JLink info:
+------------
+DLL: V4.54a, compiled Sep 17 2012 15:58:45
+Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+Hardware: V7.00
+S/N : 20090928 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info: FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M3 r1p1, Little endian.
+ROMTableAddr = 0xE00FF003
+ 
+Target info:
+------------
+Device: STM32F103RC
+VTarget = 3.300V
+State of Pins: 
+TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+Hardware-Breakpoints: 6
+Software-Breakpoints: 8192
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Full Chip Erase Done.
+Programming Done.
+Verify OK.
+Rebuild target 'uart_int'
+assembling startup_stm32f10x_hd.s...
+compiling main.c...
+compiling core_cm3.c...
+compiling system_stm32f10x.c...
+compiling stm32f10x_it.c...
+compiling misc.c...
+compiling stm32f10x_exti.c...
+compiling stm32f10x_gpio.c...
+compiling stm32f10x_rcc.c...
+compiling stm32f10x_usart.c...
+linking...
+Program Size: Code=4416 RO-data=336 RW-data=172 ZI-data=1764  
+".\out\uart_int.axf" - 0 Error(s), 0 Warning(s).
+Load "F:\\gitwork\\uPCI\\Project\\STM32F10x_StdPeriph_Examples\\USART\\Interrupt\\out\\uart_int.AXF" 
+Set JLink Project File to "F:\gitwork\uPCI\Project\STM32F10x_StdPeriph_Examples\USART\Interrupt\JLinkSettings.ini"
+* JLink Info: Device "STM32F103RC" selected (256 KB flash, 48 KB RAM).
+ 
+JLink info:
+------------
+DLL: V4.54a, compiled Sep 17 2012 15:58:45
+Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+Hardware: V7.00
+S/N : 20090928 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info: FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M3 r1p1, Little endian.
+ROMTableAddr = 0xE00FF003
+ 
+Target info:
+------------
+Device: STM32F103RC
+VTarget = 3.300V
+State of Pins: 
+TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+Hardware-Breakpoints: 6
+Software-Breakpoints: 8192
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Full Chip Erase Done.
+Programming Done.
+Verify OK.
+Rebuild target 'uart_int'
+assembling startup_stm32f10x_hd.s...
+compiling main.c...
+compiling core_cm3.c...
+compiling system_stm32f10x.c...
+compiling stm32f10x_it.c...
+compiling misc.c...
+compiling stm32f10x_exti.c...
+compiling stm32f10x_gpio.c...
+compiling stm32f10x_rcc.c...
+compiling stm32f10x_usart.c...
+linking...
+Program Size: Code=4432 RO-data=336 RW-data=172 ZI-data=1764  
+".\out\uart_int.axf" - 0 Error(s), 0 Warning(s).
+Load "F:\\gitwork\\uPCI\\Project\\STM32F10x_StdPeriph_Examples\\USART\\Interrupt\\out\\uart_int.AXF" 
+Set JLink Project File to "F:\gitwork\uPCI\Project\STM32F10x_StdPeriph_Examples\USART\Interrupt\JLinkSettings.ini"
+* JLink Info: Device "STM32F103RC" selected (256 KB flash, 48 KB RAM).
+ 
+JLink info:
+------------
+DLL: V4.54a, compiled Sep 17 2012 15:58:45
+Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+Hardware: V7.00
+S/N : 20090928 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info: FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M3 r1p1, Little endian.
+ROMTableAddr = 0xE00FF003
+ 
+Target info:
+------------
+Device: STM32F103RC
+VTarget = 3.300V
+State of Pins: 
+TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+Hardware-Breakpoints: 6
+Software-Breakpoints: 8192
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Full Chip Erase Done.
+Programming Done.
+Verify OK.
+Build target 'uart_int'
+compiling stm32f10x_it.c...
+linking...
+Program Size: Code=4432 RO-data=336 RW-data=172 ZI-data=1764  
+".\out\uart_int.axf" - 0 Error(s), 0 Warning(s).
+Load "F:\\gitwork\\uPCI\\Project\\STM32F10x_StdPeriph_Examples\\USART\\Interrupt\\out\\uart_int.AXF" 
+Set JLink Project File to "F:\gitwork\uPCI\Project\STM32F10x_StdPeriph_Examples\USART\Interrupt\JLinkSettings.ini"
+* JLink Info: Device "STM32F103RC" selected (256 KB flash, 48 KB RAM).
+ 
+JLink info:
+------------
+DLL: V4.54a, compiled Sep 17 2012 15:58:45
+Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+Hardware: V7.00
+S/N : 20090928 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info: FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M3 r1p1, Little endian.
+ROMTableAddr = 0xE00FF003
+ 
+Target info:
+------------
+Device: STM32F103RC
+VTarget = 3.300V
+State of Pins: 
+TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+Hardware-Breakpoints: 6
+Software-Breakpoints: 8192
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Full Chip Erase Done.
+Programming Done.
+Verify OK.
+Build target 'uart_int'
+compiling stm32f10x_it.c...
+linking...
+Program Size: Code=4428 RO-data=336 RW-data=172 ZI-data=1764  
+".\out\uart_int.axf" - 0 Error(s), 0 Warning(s).
+Load "F:\\gitwork\\uPCI\\Project\\STM32F10x_StdPeriph_Examples\\USART\\Interrupt\\out\\uart_int.AXF" 
+Set JLink Project File to "F:\gitwork\uPCI\Project\STM32F10x_StdPeriph_Examples\USART\Interrupt\JLinkSettings.ini"
+* JLink Info: Device "STM32F103RC" selected (256 KB flash, 48 KB RAM).
+ 
+JLink info:
+------------
+DLL: V4.54a, compiled Sep 17 2012 15:58:45
+Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+Hardware: V7.00
+S/N : 20090928 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info: FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M3 r1p1, Little endian.
+ROMTableAddr = 0xE00FF003
+ 
+Target info:
+------------
+Device: STM32F103RC
+VTarget = 3.300V
+State of Pins: 
+TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+Hardware-Breakpoints: 6
+Software-Breakpoints: 8192
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Full Chip Erase Done.
+Programming Done.
+Verify OK.
+Clean started: Project: 'uart_int'
+   deleting intermediate output files for target 'uart_int'
+Clean started: Project: 'uart_int'
+   deleting intermediate output files for target 'uart_int'
+Clean started: Project: 'uart_int'
+   deleting intermediate output files for target 'uart_int'

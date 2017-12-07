@@ -49,6 +49,7 @@ extern uint8_t NbrOfDataToTransfer1;
 extern uint8_t NbrOfDataToTransfer2;
 extern uint8_t NbrOfDataToRead1;
 extern uint8_t NbrOfDataToRead2;
+volatile uint8_t temp=0;
 
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
@@ -168,13 +169,15 @@ void USARTy_IRQHandler(void)
   if(USART_GetITStatus(USARTy, USART_IT_RXNE) != RESET)
   {
     /* Read one byte from the receive data register */
-    RxBuffer1[RxCounter1++] = USART_ReceiveData(USARTy);
+		temp = USART_ReceiveData(USARTy);
+		if (USART_GetITStatus(USARTy, USART_IT_TXE) == RESET)
+			USART_SendData(USARTy, temp);
 
-    if(RxCounter1 == NbrOfDataToRead1)
-    {
-      /* Disable the USARTy Receive interrupt */
-      USART_ITConfig(USARTy, USART_IT_RXNE, DISABLE);
-    }
+//     if(RxCounter1 == NbrOfDataToRead1)
+//     {
+//       /* Disable the USARTy Receive interrupt */
+//       USART_ITConfig(USARTy, USART_IT_RXNE, DISABLE);
+//     }
   }
   
   if(USART_GetITStatus(USARTy, USART_IT_TXE) != RESET)
@@ -182,11 +185,11 @@ void USARTy_IRQHandler(void)
     /* Write one byte to the transmit data register */
     USART_SendData(USARTy, TxBuffer1[TxCounter1++]);
 
-    if(TxCounter1 == NbrOfDataToTransfer1)
-    {
-      /* Disable the USARTy Transmit interrupt */
-      USART_ITConfig(USARTy, USART_IT_TXE, DISABLE);
-    }    
+//     if(TxCounter1 == NbrOfDataToTransfer1)
+//     {
+//       /* Disable the USARTy Transmit interrupt */
+//       USART_ITConfig(USARTy, USART_IT_TXE, DISABLE);
+//     }    
   }
 }
 
