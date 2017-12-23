@@ -22,7 +22,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x.h"
 #include "platform_config.h"
-#include "stm32f10x_spi.h"
+#include "stm32f10x_conf.h"
 /** @addtogroup STM32F10x_StdPeriph_Examples
   * @{
   */
@@ -40,6 +40,7 @@ typedef enum {FAILED = 0, PASSED = !FAILED} TestStatus;
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 SPI_InitTypeDef   SPI_InitStructure;
+USART_InitTypeDef USART_InitStructure;
 uint8_t SPIy_Buffer_Tx[BufferSize] = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
                                       0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E,
                                       0x0F, 0x10, 0x11, 0x12, 0x13, 0x14, 0x15,
@@ -54,10 +55,12 @@ uint8_t SPIy_Buffer_Rx[BufferSize], SPIz_Buffer_Rx[BufferSize];
 __IO uint8_t TxIdx = 0, RxIdx = 0, k = 0;
 volatile TestStatus TransferStatus1 = FAILED, TransferStatus2 = FAILED;
 volatile TestStatus TransferStatus3 = FAILED, TransferStatus4 = FAILED;
-
+volatile uint8_t temp = 0;
 /* Private functions ---------------------------------------------------------*/
 void RCC_Configuration(void);
 void GPIO_Configuration(uint16_t SPIy_Mode, uint16_t SPIz_Mode);
+void UART_Configuration(void);
+void NVIC_Configuration(void);
 TestStatus Buffercmp(uint8_t* pBuffer1, uint8_t* pBuffer2, uint16_t BufferLength);
 
 /**
@@ -80,9 +83,10 @@ int main(void)
   /* 1st phase: SPIy Master and SPIz Slave */
   /* GPIO configuration ------------------------------------------------------*/
   GPIO_Configuration(SPI_Mode_Master, SPI_Mode_Slave);
+  UART_Configuration();
   
   /* SPIy Config -------------------------------------------------------------*/
-  SPI_InitStructure.SPI_Direction = SPI_Direction_2Lines_FullDuplex;
+  SPI_InitStructure.SPI_Direction = SPI_Direction_1Line_Tx;
   SPI_InitStructure.SPI_Mode = SPI_Mode_Master;
   SPI_InitStructure.SPI_DataSize = SPI_DataSize_8b;
   SPI_InitStructure.SPI_CPOL = SPI_CPOL_Low;
@@ -93,86 +97,126 @@ int main(void)
   SPI_InitStructure.SPI_CRCPolynomial = 7;
   SPI_Init(SPIy, &SPI_InitStructure);
 
-  /* SPIz Config -------------------------------------------------------------*/
+  // /* SPIz Config -------------------------------------------------------------*/
+  SPI_InitStructure.SPI_Direction = SPI_Direction_1Line_Rx;
   SPI_InitStructure.SPI_Mode = SPI_Mode_Slave;
+  SPI_InitStructure.SPI_DataSize = SPI_DataSize_8b;
+  SPI_InitStructure.SPI_CPOL = SPI_CPOL_Low;
+  SPI_InitStructure.SPI_CPHA = SPI_CPHA_2Edge;
+  SPI_InitStructure.SPI_NSS = SPI_NSS_Soft;
+  SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_4;
+  SPI_InitStructure.SPI_FirstBit = SPI_FirstBit_LSB;
+  SPI_InitStructure.SPI_CRCPolynomial = 7;
   SPI_Init(SPIz, &SPI_InitStructure);
 
+/* USARTy and USARTz configuration ------------------------------------------------------*/
+  /* USARTy and USARTz configured as follow:
+        - BaudRate = 9600 baud  
+        - Word Length = 8 Bits
+        - One Stop Bit
+        - No parity
+        - Hardware flow control disabled (RTS and CTS signals)
+        - Receive and transmit enabled
+  */
+  USART_InitStructure.USART_BaudRate = 115200;
+  USART_InitStructure.USART_WordLength = USART_WordLength_8b;
+  USART_InitStructure.USART_StopBits = USART_StopBits_1;
+  USART_InitStructure.USART_Parity = USART_Parity_No;
+  USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+  USART_InitStructure.USART_Mode = USART_Mode_Tx | USART_Mode_Rx;
+
+  /* Configure USARTy */
+  USART_Init(USARTz, &USART_InitStructure);
   /* Enable SPIy */
   SPI_Cmd(SPIy, ENABLE);
   /* Enable SPIz */
   SPI_Cmd(SPIz, ENABLE);
+  /* Enable the USARTy */
+  USART_Cmd(USARTz, ENABLE);
 
   /* Transfer procedure */
-  while (TxIdx < BufferSize)
+  // while (TxIdx < BufferSize)
+  while(1)
   {
     /* Wait for SPIy Tx buffer empty */
     while (SPI_I2S_GetFlagStatus(SPIy, SPI_I2S_FLAG_TXE) == RESET);
     /* Send SPIz data */
-    SPI_I2S_SendData(SPIz, SPIz_Buffer_Tx[TxIdx]);
+    //SPI_I2S_SendData(SPIz, SPIz_Buffer_Tx[TxIdx]);
     /* Send SPIy data */
     SPI_I2S_SendData(SPIy, SPIy_Buffer_Tx[TxIdx++]);
     /* Wait for SPIz data reception */
     while (SPI_I2S_GetFlagStatus(SPIz, SPI_I2S_FLAG_RXNE) == RESET);
     /* Read SPIz received data */
     SPIz_Buffer_Rx[RxIdx] = SPI_I2S_ReceiveData(SPIz);
-    /* Wait for SPIy data reception */
-    while (SPI_I2S_GetFlagStatus(SPIy, SPI_I2S_FLAG_RXNE) == RESET);
-    /* Read SPIy received data */
-    SPIy_Buffer_Rx[RxIdx++] = SPI_I2S_ReceiveData(SPIy);
+
+    while (USART_GetFlagStatus(USARTz, USART_FLAG_TXE) == RESET);
+    USART_SendData(USARTz, SPIz_Buffer_Rx[RxIdx++]);
   }
 
   /* Check the correctness of written dada */
-  TransferStatus1 = Buffercmp(SPIz_Buffer_Rx, SPIy_Buffer_Tx, BufferSize);
-  TransferStatus2 = Buffercmp(SPIy_Buffer_Rx, SPIz_Buffer_Tx, BufferSize);
+  // TransferStatus1 = Buffercmp(SPIz_Buffer_Rx, SPIy_Buffer_Tx, BufferSize);
+  // TransferStatus2 = Buffercmp(SPIy_Buffer_Rx, SPIz_Buffer_Tx, BufferSize);
+  while (RxIdx > 0)
+    {
+        while (USART_GetFlagStatus(USARTz, USART_FLAG_TXE) == RESET);
+        USART_SendData(USARTz, SPIz_Buffer_Rx[--RxIdx]);
+    }
+    // while (1)
+        // if ((USART_GetFlagStatus(USARTz, USART_FLAG_RXNE) == SET))
+        // {
+            // TxIdx = USART_ReceiveData(USARTz);
+            // while (USART_GetFlagStatus(USARTz, USART_FLAG_TXE) == RESET);
+            // USART_SendData(USARTz, ++TxIdx);
+        // }
   /* TransferStatus1, TransferStatus2 = PASSED, if the transmitted and received data
      are equal */
   /* TransferStatus1, TransferStatus2 = FAILED, if the transmitted and received data
      are different */
 
-  /* 2nd phase: SPIy Slave and SPIz Master */
-  /* GPIO configuration ------------------------------------------------------*/
-  GPIO_Configuration(SPI_Mode_Slave , SPI_Mode_Master);
+  // /* 2nd phase: SPIy Slave and SPIz Master */
+  // /* GPIO configuration ------------------------------------------------------*/
+  // GPIO_Configuration(SPI_Mode_Slave , SPI_Mode_Master);
   
-  /* SPIy Re-configuration ---------------------------------------------------*/
-  SPI_InitStructure.SPI_Mode = SPI_Mode_Slave;
-  SPI_Init(SPIy, &SPI_InitStructure);
+  // /* SPIy Re-configuration ---------------------------------------------------*/
+  // SPI_InitStructure.SPI_Mode = SPI_Mode_Slave;
+  // SPI_Init(SPIy, &SPI_InitStructure);
 
-  /* SPIz Re-configuration ---------------------------------------------------*/
-  SPI_InitStructure.SPI_Mode = SPI_Mode_Master;
-  SPI_Init(SPIz, &SPI_InitStructure);
+  // /* SPIz Re-configuration ---------------------------------------------------*/
+  // SPI_InitStructure.SPI_Mode = SPI_Mode_Master;
+  // SPI_Init(SPIz, &SPI_InitStructure);
 
-  /* Reset TxIdx, RxIdx indexes and receive tables values */
-  TxIdx = 0;
-  RxIdx = 0;
-  for (k = 0; k < BufferSize; k++)  SPIz_Buffer_Rx[k] = 0;
-  for (k = 0; k < BufferSize; k++)  SPIy_Buffer_Rx[k] = 0;
+  // /* Reset TxIdx, RxIdx indexes and receive tables values */
+  // TxIdx = 0;
+  // RxIdx = 0;
+  // for (k = 0; k < BufferSize; k++)  SPIz_Buffer_Rx[k] = 0;
+  // for (k = 0; k < BufferSize; k++)  SPIy_Buffer_Rx[k] = 0;
 
-  /* Transfer procedure */
-  while (TxIdx < BufferSize)
-  {
-    /* Wait for SPIz Tx buffer empty */
-    while (SPI_I2S_GetFlagStatus(SPIz, SPI_I2S_FLAG_TXE) == RESET);
-    /* Send SPIy data */
-    SPI_I2S_SendData(SPIy, SPIy_Buffer_Tx[TxIdx]);
-    /* Send SPIz data */
-    SPI_I2S_SendData(SPIz, SPIz_Buffer_Tx[TxIdx++]);
-    /* Wait for SPIy data reception */
-    while (SPI_I2S_GetFlagStatus(SPIy, SPI_I2S_FLAG_RXNE) == RESET);
-    /* Read SPIy received data */
-    SPIy_Buffer_Rx[RxIdx] = SPI_I2S_ReceiveData(SPIy);
-    /* Wait for SPIz data reception */
-    while (SPI_I2S_GetFlagStatus(SPIz, SPI_I2S_FLAG_RXNE) == RESET);
-    /* Read SPIz received data */
-    SPIz_Buffer_Rx[RxIdx++] = SPI_I2S_ReceiveData(SPIz);
-  }
+  // /* Transfer procedure */
+  // while (TxIdx < BufferSize)
+  // {
+    // /* Wait for SPIz Tx buffer empty */
+    // while (SPI_I2S_GetFlagStatus(SPIz, SPI_I2S_FLAG_TXE) == RESET);
+    // /* Send SPIy data */
+    // SPI_I2S_SendData(SPIy, SPIy_Buffer_Tx[TxIdx]);
+    // /* Send SPIz data */
+    // SPI_I2S_SendData(SPIz, SPIz_Buffer_Tx[TxIdx++]);
+    // /* Wait for SPIy data reception */
+    // while (SPI_I2S_GetFlagStatus(SPIy, SPI_I2S_FLAG_RXNE) == RESET);
+    // /* Read SPIy received data */
+    // SPIy_Buffer_Rx[RxIdx] = SPI_I2S_ReceiveData(SPIy);
+    // /* Wait for SPIz data reception */
+    // while (SPI_I2S_GetFlagStatus(SPIz, SPI_I2S_FLAG_RXNE) == RESET);
+    // /* Read SPIz received data */
+    // SPIz_Buffer_Rx[RxIdx++] = SPI_I2S_ReceiveData(SPIz);
+  // }
 
-  /* Check the correctness of written dada */
-  TransferStatus3 = Buffercmp(SPIz_Buffer_Rx, SPIy_Buffer_Tx, BufferSize);
-  TransferStatus4 = Buffercmp(SPIy_Buffer_Rx, SPIz_Buffer_Tx, BufferSize);
-  /* TransferStatus3, TransferStatus4 = PASSED, if the transmitted and received data
-     are equal */
-  /* TransferStatus3, TransferStatus4 = FAILED, if the transmitted and received data
-     are different */
+  // /* Check the correctness of written dada */
+  // TransferStatus3 = Buffercmp(SPIz_Buffer_Rx, SPIy_Buffer_Tx, BufferSize);
+  // TransferStatus4 = Buffercmp(SPIy_Buffer_Rx, SPIz_Buffer_Tx, BufferSize);
+  // /* TransferStatus3, TransferStatus4 = PASSED, if the transmitted and received data
+     // are equal */
+  // /* TransferStatus3, TransferStatus4 = FAILED, if the transmitted and received data
+     // are different */
 
   while (1)
   {}
@@ -189,19 +233,13 @@ void RCC_Configuration(void)
   RCC_PCLK2Config(RCC_HCLK_Div2); 
 
 /* Enable peripheral clocks --------------------------------------------------*/
-#ifdef USE_STM3210C_EVAL
-  /* Enable GPIO clock for SPIy and SPIz */
-  RCC_APB2PeriphClockCmd(SPIy_GPIO_CLK | SPIz_GPIO_CLK | RCC_APB2Periph_AFIO, ENABLE);
-
-  /* Enable SPIy Periph clock */
-  RCC_APB1PeriphClockCmd(SPIy_CLK, ENABLE);
-                           
-#else
   /* Enable SPIy clock and GPIO clock for SPIy and SPIz */
   RCC_APB2PeriphClockCmd(SPIy_GPIO_CLK | SPIz_GPIO_CLK | SPIy_CLK, ENABLE);
-#endif
+  RCC_APB2PeriphClockCmd(USARTz_GPIO_CLK | RCC_APB2Periph_AFIO, ENABLE);  
   /* Enable SPIz Periph clock */
   RCC_APB1PeriphClockCmd(SPIz_CLK, ENABLE);
+    /* Enable USARTz Clock */
+  RCC_APB1PeriphClockCmd(USARTz_CLK, ENABLE);  
 }
 
 /**
@@ -281,6 +319,40 @@ void GPIO_Configuration(uint16_t SPIy_Mode, uint16_t SPIz_Mode)
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
   }
   GPIO_Init(SPIz_GPIO, &GPIO_InitStructure);
+}
+
+/**
+  * @brief  Configures the different GPIO ports.
+  * @param  None
+  * @retval None
+  */
+void UART_Configuration(void)
+{
+  GPIO_InitTypeDef GPIO_InitStructure;
+
+  /* Configure USARTy Rx as input floating */
+  GPIO_InitStructure.GPIO_Pin = USARTz_RxPin;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  GPIO_Init(USARTz_GPIO, &GPIO_InitStructure);
+  
+  /* Configure USARTy Tx as alternate function push-pull */
+  GPIO_InitStructure.GPIO_Pin = USARTz_TxPin;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+  GPIO_Init(USARTz_GPIO, &GPIO_InitStructure);
+}
+void NVIC_Configuration(void)
+{
+  NVIC_InitTypeDef NVIC_InitStructure;
+
+  /* Configure the NVIC Preemption Priority Bits */  
+  NVIC_PriorityGroupConfig(NVIC_PriorityGroup_0);
+  
+  /* Enable the USARTy Interrupt */
+  NVIC_InitStructure.NVIC_IRQChannel = USARTz_IRQn;
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+  NVIC_InitStructure.NVIC_IRQChannelCmd = DISABLE;
+  NVIC_Init(&NVIC_InitStructure);
 }
 /**
   * @brief  Compares two buffers.
